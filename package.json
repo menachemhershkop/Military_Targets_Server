@@ -1,0 +1,25 @@
+{
+  "name": "military-targets-server",
+  "version": "1.0.0",
+  "description": "\"# Military_Targets_Server\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/menachemhershkop/Military_Targets_Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/menachemhershkop/Military_Targets_Server/issues"
+  },
+  "homepage": "https://github.com/menachemhershkop/Military_Targets_Server#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "morgan": "^1.10.1"
+  }
+}
