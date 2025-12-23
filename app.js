@@ -94,3 +94,74 @@ app.post('/targets', async (req,res)=>{
     res.status(401).send("Not currect")
    }
 })
+
+app.put('/targets/:id', async (req, res)=> {
+    const body = req.body
+    const updateKeys = Object.keys(body)
+    const params = req.params.id
+    let file = await fs.readFile('data/targets.json', "utf8")
+    const users = JSON.parse(file)
+    let new_file = []
+    let flag = false
+    try{
+     users.forEach((elemnt)=> {
+        if (elemnt['id']==params){
+            for (let i=0; i< updateKeys.length;i++){
+                elemnt[updateKeys[i]] = body[updateKeys[i]]}
+                new_file.push(elemnt)
+                flag = true
+        }
+        else {
+        new_file.push(elemnt)
+        }
+     
+    })     
+
+    console.log(new_file);
+    if (flag){
+    await fs.writeFile('data/targets.json', JSON.stringify(new_file))
+    res.status(200).send("update seccses")
+    }
+    else {
+        res.status(400).send("ID not fuond")
+    }
+    }
+    catch (error){
+        res.send(error)
+    }
+})
+
+app.delete('/targets/:id', async (req, res)=> {
+    const params = req.params.id
+    let file = await fs.readFile("data/targets.json", "utf8")
+    const users = JSON.parse(file)
+    let new_file = []
+    let flag = false
+    try{
+        users.forEach((elemnt, index)=> {if (elemnt['id']==params){
+            users.splice(index, 1)
+            console.log(users);
+            flag = true            
+        res.send({'deleted':true}, elemnt)
+     }
+     else {
+        // new_file.push(elemnt)
+        console.log(123);
+        console.log(users);
+        
+        
+     }
+    })
+    console.log(new_file);
+    if (flag){
+    await fs.writeFile('data/targets.json', new_file)}
+    else{
+        res.status(400).send('ID not found')
+    }
+}
+    catch(error){
+        console.log(error);
+        
+    }
+
+})
