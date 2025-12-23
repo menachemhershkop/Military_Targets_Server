@@ -69,3 +69,28 @@ app.get('/targets', async (req,res)=> {
     }
     })
 })
+
+app.post('/targets', async (req,res)=>{
+    const body= req.body
+    try{
+
+        if ('id' in body && 'codeName' in body&& 'region' in body && 'priority' in body){
+            let file = await fs.readFile("data/targets.json", "utf8")
+            let content = JSON.parse(file)
+            body.status = 'new'
+            body.createAt= new Date().toISOString()
+            content.push(body)
+            console.log(typeof content);
+            await fs.writeFile('data/targets.json', JSON.stringify(content))
+            res.status(201).send('create')
+
+    }
+    else{
+        res.status(400).send("Content incorrect")
+    }
+
+    }
+    catch(error){
+    res.status(401).send("Not currect")
+   }
+})
